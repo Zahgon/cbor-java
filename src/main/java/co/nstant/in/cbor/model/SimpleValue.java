@@ -7,8 +7,11 @@ public class SimpleValue extends Special {
     private final SimpleValueType simpleValueType;
 
     public static final SimpleValue FALSE = new SimpleValue(SimpleValueType.FALSE);
+
     public static final SimpleValue TRUE = new SimpleValue(SimpleValueType.TRUE);
+
     public static final SimpleValue NULL = new SimpleValue(SimpleValueType.NULL);
+
     public static final SimpleValue UNDEFINED = new SimpleValue(SimpleValueType.UNDEFINED);
 
     private final int value;
@@ -26,30 +29,25 @@ public class SimpleValue extends Special {
     }
 
     public SimpleValueType getSimpleValueType() {
-        return simpleValueType;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public int getValue() {
-        return value;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof SimpleValue) {
-            SimpleValue other = (SimpleValue) object;
-            return super.equals(object) && value == other.value;
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() ^ Objects.hashCode(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return simpleValueType.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

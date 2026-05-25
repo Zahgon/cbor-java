@@ -1,7 +1,6 @@
 package co.nstant.in.cbor.decoder;
 
 import java.io.InputStream;
-
 import co.nstant.in.cbor.CborDecoder;
 import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.HalfPrecisionFloat;
@@ -14,9 +13,7 @@ public class HalfPrecisionFloatDecoder extends AbstractDecoder<HalfPrecisionFloa
 
     @Override
     public HalfPrecisionFloat decode(int initialByte) throws CborException {
-        byte[] symbols = nextSymbols(2);
-        int bits = (symbols[0] & 0xFF) << 8 | (symbols[1] & 0xFF);
-        return new HalfPrecisionFloat(toFloat(bits));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -26,14 +23,11 @@ public class HalfPrecisionFloatDecoder extends AbstractDecoder<HalfPrecisionFloa
         int s = (bits & 0x8000) >> 15;
         int e = (bits & 0x7C00) >> 10;
         int f = bits & 0x03FF;
-
         if (e == 0) {
             return (float) ((s != 0 ? -1 : 1) * Math.pow(2, -14) * (f / Math.pow(2, 10)));
         } else if (e == 0x1F) {
             return f != 0 ? Float.NaN : (s != 0 ? -1 : 1) * Float.POSITIVE_INFINITY;
         }
-
         return (float) ((s != 0 ? -1 : 1) * Math.pow(2, e - 15) * (1 + f / Math.pow(2, 10)));
     }
-
 }

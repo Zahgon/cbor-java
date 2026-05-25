@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Objects;
-
 import co.nstant.in.cbor.model.Array;
 import co.nstant.in.cbor.model.ByteString;
 import co.nstant.in.cbor.model.DataItem;
@@ -43,9 +42,7 @@ public class CborEncoder {
      *                       was an problem with the {@link OutputStream}.
      */
     public void encode(List<DataItem> dataItems) throws CborException {
-        for (DataItem dataItem : dataItems) {
-            encode(dataItem);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -57,20 +54,15 @@ public class CborEncoder {
      *                       an problem with the {@link OutputStream}.
      */
     public void encode(DataItem dataItem) throws CborException {
-        try {
-            cborOutputStream.writeDataItem(dataItem);
-        } catch (IOException ioException) {
-            throw new CborException(ioException);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public boolean isCanonical() {
-        return cborOutputStream.isCanonical();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public CborEncoder nonCanonical() {
-        cborOutputStream.setCanonical(false);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -79,17 +71,7 @@ public class CborEncoder {
      * @param dataItems a list of {@link DataItem}s
      */
     public static byte[] encodeToBytes(List<DataItem> dataItems) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        CborOutputStream cborOutputStream = new CborOutputStream(byteArrayOutputStream);
-        try {
-            for (DataItem dataItem : dataItems) {
-                cborOutputStream.writeDataItem(dataItem);
-            }
-        } catch (IOException ioException) {
-            // A ByteArrayOutputStream does not actually throw an IOException.
-            throw new AssertionError(ioException);
-        }
-        return byteArrayOutputStream.toByteArray();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -99,15 +81,6 @@ public class CborEncoder {
      *                 {@link SimpleValue} NULL value.
      */
     public static byte[] encodeToBytes(DataItem dataItem) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        CborOutputStream cborOutputStream = new CborOutputStream(byteArrayOutputStream);
-        try {
-            cborOutputStream.writeDataItem(dataItem);
-        } catch (IOException ioException) {
-            // A ByteArrayOutputStream does not actually throw an IOException.
-            throw new AssertionError(ioException);
-        }
-        return byteArrayOutputStream.toByteArray();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

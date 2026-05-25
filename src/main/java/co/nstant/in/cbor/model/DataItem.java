@@ -1,12 +1,12 @@
 package co.nstant.in.cbor.model;
 
 import java.util.Objects;
-
 import co.nstant.in.cbor.CborEncoder;
 
 public class DataItem {
 
     private final MajorType majorType;
+
     private Tag tag;
 
     protected DataItem(MajorType majorType) {
@@ -15,68 +15,48 @@ public class DataItem {
     }
 
     public MajorType getMajorType() {
-        return majorType;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setTag(long tag) {
-        if (tag < 0) {
-            throw new IllegalArgumentException("tag number must be 0 or greater");
-        }
-
-        this.tag = new Tag(tag);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setTag(Tag tag) {
-        Objects.requireNonNull(tag, "tag is null");
-        this.tag = tag;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void removeTag() {
-        tag = null;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Tag getTag() {
-        return tag;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public boolean hasTag() {
-        return tag != null;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof DataItem) {
-            DataItem other = (DataItem) object;
-            if (tag != null) {
-                return tag.equals(other.tag) && majorType == other.majorType;
-            } else {
-                return other.tag == null && majorType == other.majorType;
-            }
-        }
-
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(majorType, tag);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected void assertTrue(boolean condition, String message) {
-        if (!condition) {
-            throw new IllegalArgumentException(message);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public DataItem getOuterTaggable() {
-        DataItem item = this;
-        while (item.getTag() != null) {
-            item = item.getTag();
-        }
-        return item;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public byte[] encodeToBytes() {
-        return CborEncoder.encodeToBytes(this);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

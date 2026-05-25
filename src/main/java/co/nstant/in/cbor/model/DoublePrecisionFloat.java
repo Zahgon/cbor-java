@@ -12,26 +12,21 @@ public class DoublePrecisionFloat extends Special {
     }
 
     public double getValue() {
-        return value;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof DoublePrecisionFloat) {
-            DoublePrecisionFloat other = (DoublePrecisionFloat) object;
-            return super.equals(object) && value == other.value;
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() ^ Objects.hashCode(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

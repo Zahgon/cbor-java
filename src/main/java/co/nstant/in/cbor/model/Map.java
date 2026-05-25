@@ -8,6 +8,7 @@ import java.util.List;
 public class Map extends ChunkableDataItem {
 
     private final LinkedHashMap<DataItem, DataItem> map;
+
     private final List<DataItem> keys = new LinkedList<>();
 
     public Map() {
@@ -21,59 +22,37 @@ public class Map extends ChunkableDataItem {
     }
 
     public Map put(DataItem key, DataItem value) {
-        if (map.put(key, value) == null) {
-            keys.add(key);
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public DataItem get(DataItem key) {
-        return map.get(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public DataItem remove(DataItem key) {
-        keys.remove(key);
-        return map.remove(key);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Collection<DataItem> getKeys() {
-        return keys;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Collection<DataItem> getValues() {
-        return map.values();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof Map) {
-            Map other = (Map) object;
-            return super.equals(object) && map.equals(other.map);
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() ^ map.hashCode();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (isChunked()) {
-            stringBuilder.append("{_ ");
-        } else {
-            stringBuilder.append("{ ");
-        }
-        for (DataItem key : keys) {
-            stringBuilder.append(key).append(": ").append(map.get(key)).append(", ");
-        }
-        if (stringBuilder.toString().endsWith(", ")) {
-            stringBuilder.setLength(stringBuilder.length() - 2);
-        }
-        stringBuilder.append(" }");
-        return stringBuilder.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

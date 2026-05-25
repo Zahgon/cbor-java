@@ -1,13 +1,11 @@
 package co.nstant.in.cbor.model;
 
 import java.math.BigInteger;
-
 import co.nstant.in.cbor.CborException;
 
 /**
  * Rational Numbers: http://peteroupc.github.io/CBOR/rational.html
  */
-
 public class RationalNumber extends Array {
 
     public RationalNumber(Number numerator, Number denominator) throws CborException {
@@ -26,11 +24,10 @@ public class RationalNumber extends Array {
     }
 
     public Number getNumerator() {
-        return (Number) getDataItems().get(0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public Number getDenominator() {
-        return (Number) getDataItems().get(1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

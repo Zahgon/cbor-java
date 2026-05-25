@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
-
 import co.nstant.in.cbor.model.AdditionalInformation;
 import co.nstant.in.cbor.model.Array;
 import co.nstant.in.cbor.model.ByteString;
@@ -30,9 +29,11 @@ import co.nstant.in.cbor.model.UnsignedInteger;
 class CborOutputStream extends OutputStream {
 
     private static final BigInteger MINUS_ONE = BigInteger.valueOf(-1);
+
     private static final BigInteger UINT64_MAX_PLUS_ONE = new BigInteger("18446744073709551616");
 
     private final OutputStream outputStream;
+
     private boolean canonical = true;
 
     public CborOutputStream(OutputStream outputStream) {
@@ -40,50 +41,15 @@ class CborOutputStream extends OutputStream {
     }
 
     public boolean isCanonical() {
-        return canonical;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void setCanonical(boolean canonical) {
-        this.canonical = canonical;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void writeDataItem(DataItem dataItem) throws IOException {
-        if (dataItem == null) {
-            dataItem = SimpleValue.NULL;
-        }
-
-        if (dataItem.hasTag()) {
-            writeDataItem(dataItem.getTag());
-        }
-
-        switch (dataItem.getMajorType()) {
-        case UNSIGNED_INTEGER:
-            writeUnsignedInteger((UnsignedInteger) dataItem);
-            break;
-        case NEGATIVE_INTEGER:
-            writeNegativeInteger((NegativeInteger) dataItem);
-            break;
-        case BYTE_STRING:
-            writeByteString((ByteString) dataItem);
-            break;
-        case UNICODE_STRING:
-            writeUnicodeString((UnicodeString) dataItem);
-            break;
-        case ARRAY:
-            writeArray((Array) dataItem);
-            break;
-        case MAP:
-            writeMap((Map) dataItem);
-            break;
-        case SPECIAL:
-            writeSpecial((Special) dataItem);
-            break;
-        case TAG:
-            writeTag((Tag) dataItem);
-            break;
-        default:
-            throw new AssertionError("Unknown major type");
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private void writeUnsignedInteger(UnsignedInteger dataItem) throws IOException {
@@ -139,17 +105,14 @@ class CborOutputStream extends OutputStream {
 
     private void writeMap(Map map) throws IOException {
         Collection<DataItem> keys = map.getKeys();
-
         if (map.isChunked()) {
             writeIndefiniteLengthType(MajorType.MAP);
         } else {
             writeType(MajorType.MAP, keys.size());
         }
-
         if (keys.isEmpty()) {
             return;
         }
-
         if (map.isChunked()) {
             writeNonCanonicalMap(map);
             writeSpecial(SimpleValue.BREAK);
@@ -190,25 +153,9 @@ class CborOutputStream extends OutputStream {
 
             @Override
             public int compare(byte[] o1, byte[] o2) {
-                if (o1.length < o2.length) {
-                    return -1;
-                }
-                if (o1.length > o2.length) {
-                    return 1;
-                }
-                for (int i = 0; i < o1.length; i++) {
-                    if (o1[i] < o2[i]) {
-                        return -1;
-                    }
-                    if (o1[i] > o2[i]) {
-                        return 1;
-                    }
-                }
-                return 0;
+                throw new UnsupportedOperationException("STUB: not implemented");
             }
-
         });
-
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         CborOutputStream cborOutputStream = new CborOutputStream(byteArrayOutputStream);
         for (DataItem key : map.getKeys()) {
@@ -228,44 +175,8 @@ class CborOutputStream extends OutputStream {
         }
     }
 
-    void writeSpecial(Special dataItem)  throws IOException{
-        switch (dataItem.getSpecialType()) {
-        case BREAK:
-            write((7 << 5) | 31);
-            break;
-        case SIMPLE_VALUE:
-            SimpleValue simpleValue = (SimpleValue) dataItem;
-            switch (simpleValue.getSimpleValueType()) {
-            case FALSE:
-            case NULL:
-            case TRUE:
-            case UNDEFINED:
-                SimpleValueType type = simpleValue.getSimpleValueType();
-                write((7 << 5) | type.getValue());
-                break;
-            case UNALLOCATED:
-                write((7 << 5) | simpleValue.getValue());
-                break;
-            case RESERVED:
-                break;
-            }
-            break;
-        case IEEE_754_HALF_PRECISION_FLOAT:
-            writeHalfPrecisionFloat((HalfPrecisionFloat) dataItem);
-            break;
-        case IEEE_754_SINGLE_PRECISION_FLOAT:
-            writeSinglePrecisionFloat((SinglePrecisionFloat) dataItem);
-            break;
-        case IEEE_754_DOUBLE_PRECISION_FLOAT:
-            writeDoublePrecisionFloat((DoublePrecisionFloat) dataItem);
-            break;
-        case SIMPLE_VALUE_NEXT_BYTE:
-            SimpleValue simpleValueNextByte = (SimpleValue) dataItem;
-            writeBytes((byte) ((7 << 5) | 24), (byte) simpleValueNextByte.getValue());
-            break;
-        default:
-            throw new AssertionError("Unknown special value type");
-        }
+    void writeSpecial(Special dataItem) throws IOException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private void writeHalfPrecisionFloat(HalfPrecisionFloat dataItem) throws IOException {
@@ -280,45 +191,53 @@ class CborOutputStream extends OutputStream {
      */
     private static int fromFloat(float fval) {
         int fbits = Float.floatToIntBits(fval);
-        int sign = fbits >>> 16 & 0x8000; // sign only
-        int val = 0x1000 + fbits & 0x7fffffff; // rounded value
-
-        if (val >= 0x47800000) // might be or become NaN/Inf
-        { // avoid Inf due to rounding
-            if ((fbits & 0x7fffffff) >= 0x47800000) { // is or must become
-                                                      // NaN/Inf
-                if (val < 0x7f800000) {// was value but too large
-                    return sign | 0x7c00; // make it +/-Inf
+        // sign only
+        int sign = fbits >>> 16 & 0x8000;
+        // rounded value
+        int val = 0x1000 + fbits & 0x7fffffff;
+        if (// might be or become NaN/Inf
+        val >= 0x47800000) {
+            // avoid Inf due to rounding
+            if ((fbits & 0x7fffffff) >= 0x47800000) {
+                // is or must become
+                // NaN/Inf
+                if (val < 0x7f800000) {
+                    // was value but too large
+                    // make it +/-Inf
+                    return sign | 0x7c00;
                 }
-                return sign | 0x7c00 | // remains +/-Inf or NaN
-                    (fbits & 0x007fffff) >>> 13; // keep NaN (and
-                                                 // Inf) bits
+                return // remains +/-Inf or NaN
+                sign | 0x7c00 | // keep NaN (and
+                (fbits & 0x007fffff) >>> 13;
+                // Inf) bits
             }
-            return sign | 0x7bff; // unrounded not quite Inf
+            // unrounded not quite Inf
+            return sign | 0x7bff;
         }
-        if (val >= 0x38800000) { // remains normalized value
-            return sign | val - 0x38000000 >>> 13; // exp - 127 + 15
+        if (val >= 0x38800000) {
+            // remains normalized value
+            // exp - 127 + 15
+            return sign | val - 0x38000000 >>> 13;
         }
-        if (val < 0x33000000) { // too small for subnormal
-            return sign; // becomes +/-0
+        if (val < 0x33000000) {
+            // too small for subnormal
+            // becomes +/-0
+            return sign;
         }
-        val = (fbits & 0x7fffffff) >>> 23; // tmp exp for subnormal calc
-        return sign | ((fbits & 0x7fffff | 0x800000) // add subnormal bit
-            + (0x800000 >>> val - 102) // round depending on cut off
-            >>> 126 - val); // div by 2^(1-(exp-127+15)) and >> 13 | exp=0
+        // tmp exp for subnormal calc
+        val = (fbits & 0x7fffffff) >>> 23;
+        return sign | (// add subnormal bit
+        (fbits & 0x7fffff | 0x800000) + // round depending on cut off
+        (0x800000 >>> val - 102) >>> // div by 2^(1-(exp-127+15)) and >> 13 | exp=0
+        126 - val);
     }
 
     public void writeSinglePrecisionFloat(SinglePrecisionFloat dataItem) throws IOException {
-        int bits = Float.floatToRawIntBits(dataItem.getValue());
-        writeBytes((byte) ((7 << 5) | 26), (byte) ((bits >> 24) & 0xFF), (byte) ((bits >> 16) & 0xFF),
-            (byte) ((bits >> 8) & 0xFF), (byte) ((bits >> 0) & 0xFF));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public void writeDoublePrecisionFloat(DoublePrecisionFloat dataItem) throws IOException {
-        long bits = Double.doubleToRawLongBits(dataItem.getValue());
-        writeBytes((byte) ((7 << 5) | 27), (byte) ((bits >> 56) & 0xFF), (byte) ((bits >> 48) & 0xFF),
-            (byte) ((bits >> 40) & 0xFF), (byte) ((bits >> 32) & 0xFF), (byte) ((bits >> 24) & 0xFF),
-            (byte) ((bits >> 16) & 0xFF), (byte) ((bits >> 8) & 0xFF), (byte) ((bits >> 0) & 0xFF));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private void writeTag(Tag tag) throws IOException {
@@ -343,13 +262,10 @@ class CborOutputStream extends OutputStream {
             writeBytes((byte) symbol, (byte) (length >> 8), (byte) (length & 0xFF));
         } else if (length <= 4294967295L) {
             symbol |= AdditionalInformation.FOUR_BYTES.getValue();
-            writeBytes((byte) symbol, (byte) ((length >> 24) & 0xFF), (byte) ((length >> 16) & 0xFF),
-                (byte) ((length >> 8) & 0xFF), (byte) (length & 0xFF));
+            writeBytes((byte) symbol, (byte) ((length >> 24) & 0xFF), (byte) ((length >> 16) & 0xFF), (byte) ((length >> 8) & 0xFF), (byte) (length & 0xFF));
         } else {
             symbol |= AdditionalInformation.EIGHT_BYTES.getValue();
-            writeBytes((byte) symbol, (byte) ((length >> 56) & 0xFF), (byte) ((length >> 48) & 0xFF),
-                (byte) ((length >> 40) & 0xFF), (byte) ((length >> 32) & 0xFF), (byte) ((length >> 24) & 0xFF),
-                (byte) ((length >> 16) & 0xFF), (byte) ((length >> 8) & 0xFF), (byte) (length & 0xFF));
+            writeBytes((byte) symbol, (byte) ((length >> 56) & 0xFF), (byte) ((length >> 48) & 0xFF), (byte) ((length >> 40) & 0xFF), (byte) ((length >> 32) & 0xFF), (byte) ((length >> 24) & 0xFF), (byte) ((length >> 16) & 0xFF), (byte) ((length >> 8) & 0xFF), (byte) (length & 0xFF));
         }
     }
 
@@ -368,16 +284,11 @@ class CborOutputStream extends OutputStream {
         } else if (length.compareTo(BigInteger.valueOf(4294967296L)) < 0) {
             symbol |= AdditionalInformation.FOUR_BYTES.getValue();
             long fourByteValue = length.longValue();
-            writeBytes((byte) symbol, (byte) ((fourByteValue >> 24) & 0xFF), (byte) ((fourByteValue >> 16) & 0xFF),
-                (byte) ((fourByteValue >> 8) & 0xFF), (byte) (fourByteValue & 0xFF));
+            writeBytes((byte) symbol, (byte) ((fourByteValue >> 24) & 0xFF), (byte) ((fourByteValue >> 16) & 0xFF), (byte) ((fourByteValue >> 8) & 0xFF), (byte) (fourByteValue & 0xFF));
         } else if (length.compareTo(UINT64_MAX_PLUS_ONE) < 0) {
             symbol |= AdditionalInformation.EIGHT_BYTES.getValue();
             BigInteger mask = BigInteger.valueOf(0xFF);
-            writeBytes((byte) symbol, length.shiftRight(56).and(mask).byteValue(),
-                length.shiftRight(48).and(mask).byteValue(), length.shiftRight(40).and(mask).byteValue(),
-                length.shiftRight(32).and(mask).byteValue(), length.shiftRight(24).and(mask).byteValue(),
-                length.shiftRight(16).and(mask).byteValue(), length.shiftRight(8).and(mask).byteValue(),
-                length.and(mask).byteValue());
+            writeBytes((byte) symbol, length.shiftRight(56).and(mask).byteValue(), length.shiftRight(48).and(mask).byteValue(), length.shiftRight(40).and(mask).byteValue(), length.shiftRight(32).and(mask).byteValue(), length.shiftRight(24).and(mask).byteValue(), length.shiftRight(16).and(mask).byteValue(), length.shiftRight(8).and(mask).byteValue(), length.and(mask).byteValue());
         } else {
             if (negative) {
                 writeType(MajorType.TAG, 3);
@@ -396,27 +307,26 @@ class CborOutputStream extends OutputStream {
 
     @Override
     public void write(int b) throws IOException {
-        outputStream.write(b);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void write(byte[] b) throws IOException {
-        outputStream.write(b);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
-        outputStream.write(b, off, len);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void flush() throws IOException {
-        outputStream.flush();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void close() throws IOException {
-        outputStream.close();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

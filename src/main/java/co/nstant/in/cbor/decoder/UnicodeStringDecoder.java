@@ -3,7 +3,6 @@ package co.nstant.in.cbor.decoder;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-
 import co.nstant.in.cbor.CborDecoder;
 import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.DataItem;
@@ -19,23 +18,12 @@ public class UnicodeStringDecoder extends AbstractDecoder<UnicodeString> {
 
     @Override
     public UnicodeString decode(int initialByte) throws CborException {
-        long length = getLength(initialByte);
-        if (length == INFINITY) {
-            if (decoder.isAutoDecodeInfinitiveUnicodeStrings()) {
-                return decodeInfinitiveLength();
-            } else {
-                UnicodeString unicodeString = new UnicodeString(null);
-                unicodeString.setChunked(true);
-                return unicodeString;
-            }
-        } else {
-            return decodeFixedLength(length);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private UnicodeString decodeInfinitiveLength() throws CborException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        for (;;) {
+        for (; ; ) {
             DataItem dataItem = decoder.decodeNext();
             if (dataItem == null) {
                 throw new CborException("Unexpected end of stream");
@@ -57,5 +45,4 @@ public class UnicodeStringDecoder extends AbstractDecoder<UnicodeString> {
     private UnicodeString decodeFixedLength(long length) throws CborException {
         return new UnicodeString(new String(decodeBytes(length), StandardCharsets.UTF_8));
     }
-
 }

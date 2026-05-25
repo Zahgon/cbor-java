@@ -13,26 +13,21 @@ public abstract class Number extends DataItem {
     }
 
     public BigInteger getValue() {
-        return value;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof Number) {
-            Number other = (Number) object;
-            return super.equals(object) && value.equals(other.value);
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() ^ value.hashCode();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return value.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

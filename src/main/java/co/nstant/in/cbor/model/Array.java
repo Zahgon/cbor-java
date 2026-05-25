@@ -19,42 +19,29 @@ public class Array extends ChunkableDataItem {
     }
 
     public Array add(DataItem object) {
-        objects.add(object);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public List<DataItem> getDataItems() {
-        return objects;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof Array) {
-            Array other = (Array) object;
-            return super.equals(object) && objects.equals(other.objects);
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() ^ objects.hashCode();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("[");
-        if (isChunked()) {
-            stringBuilder.append("_ ");
-        }
-        stringBuilder.append(Arrays.toString(objects.toArray()).substring(1));
-        return stringBuilder.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public DataItem peekLast() {
-        if (objects.isEmpty()) {
-            return null;
-        }
-        return objects.get(objects.size() - 1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

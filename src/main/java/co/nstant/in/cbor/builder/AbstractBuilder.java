@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
-
 import co.nstant.in.cbor.CborEncoder;
 import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.decoder.HalfPrecisionFloatDecoder;
@@ -28,59 +27,43 @@ public abstract class AbstractBuilder<T> {
     }
 
     protected T getParent() {
-        return parent;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected void addChunk(DataItem dataItem) {
-        throw new IllegalStateException();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected DataItem convert(long value) {
-        if (value >= 0) {
-            return new UnsignedInteger(value);
-        } else {
-            return new NegativeInteger(value);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected DataItem convert(BigInteger value) {
-        if (value.signum() == -1) {
-            return new NegativeInteger(value);
-        } else {
-            return new UnsignedInteger(value);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected DataItem convert(boolean value) {
-        if (value) {
-            return SimpleValue.TRUE;
-        } else {
-            return SimpleValue.FALSE;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected DataItem convert(byte[] bytes) {
-        return new ByteString(bytes);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected DataItem convert(String string) {
-        return new UnicodeString(string);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected DataItem convert(float value) {
-        if (isHalfPrecisionEnough(value)) {
-            return new HalfPrecisionFloat(value);
-        } else {
-            return new SinglePrecisionFloat(value);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected DataItem convert(double value) {
-        return new DoublePrecisionFloat(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     protected Tag tag(long value) {
-        return new Tag(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private boolean isHalfPrecisionEnough(float value) {
@@ -88,7 +71,8 @@ public abstract class AbstractBuilder<T> {
             byte[] bytes = new HalfPrecisionFloat(value).encodeToBytes();
             ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
             HalfPrecisionFloatDecoder decoder = getHalfPrecisionFloatDecoder(inputStream);
-            if (inputStream.read() == -1) { // to skip type byte
+            if (inputStream.read() == -1) {
+                // to skip type byte
                 throw new CborException("unexpected end of stream");
             }
             HalfPrecisionFloat halfPrecisionFloat = decoder.decode(0);
@@ -99,7 +83,6 @@ public abstract class AbstractBuilder<T> {
     }
 
     protected HalfPrecisionFloatDecoder getHalfPrecisionFloatDecoder(InputStream inputStream) {
-        return new HalfPrecisionFloatDecoder(null, inputStream);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

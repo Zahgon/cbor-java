@@ -15,7 +15,6 @@ public enum MajorType {
      * followed by the two bytes 0x01f4, which is 500 in decimal.
      */
     UNSIGNED_INTEGER(0),
-
     /**
      * Major type 1: a negative integer. The encoding follows the rules for unsigned
      * integers (major type 0), except that the value is then -1 minus the encoded
@@ -24,7 +23,6 @@ public enum MajorType {
      * 499 in decimal.
      */
     NEGATIVE_INTEGER(1),
-
     /**
      * Major type 2: a byte string. The string's length in bytes is represented
      * following the rules for positive integers (major type 0). For example, a byte
@@ -36,7 +34,6 @@ public enum MajorType {
      * followed by 500 bytes of binary content.
      */
     BYTE_STRING(2),
-
     /**
      * Major type 3: string of Unicode characters that is encoded as UTF-8
      * [RFC3629]. The format of this type is identical to that of byte strings
@@ -49,7 +46,6 @@ public enum MajorType {
      * "u", "0", "0", "0", and "a").
      */
     UNICODE_STRING(3),
-
     /**
      * Major type 4: an array of data items. Arrays are also called lists,
      * sequences, or tuples. The array's length follows the rules for byte strings
@@ -60,7 +56,6 @@ public enum MajorType {
      * information of 10 for the length) followed by the 10 remaining items.
      */
     ARRAY(4),
-
     /**
      * Major type 5: a map of pairs of data items. Maps are also called tables,
      * dictionaries, hashes, or objects (in JSON). A map is comprised of pairs of
@@ -75,13 +70,11 @@ public enum MajorType {
      * second key, and so on.
      */
     MAP(5),
-
     /**
      * Major type 6: optional semantic tagging of other major types. See Section
      * 2.4.
      */
     TAG(6),
-
     /**
      * Major type 7: floating point numbers and simple data types that need no
      * content, as well as the "break" stop code. See Section 2.3.
@@ -95,30 +88,10 @@ public enum MajorType {
     }
 
     public int getValue() {
-        return value;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static MajorType ofByte(int b) throws CborException {
-        switch (b >> 5) {
-        case 0:
-            return UNSIGNED_INTEGER;
-        case 1:
-            return NEGATIVE_INTEGER;
-        case 2:
-            return BYTE_STRING;
-        case 3:
-            return UNICODE_STRING;
-        case 4:
-            return ARRAY;
-        case 5:
-            return MAP;
-        case 6:
-            return TAG;
-        case 7:
-            return SPECIAL;
-        default:
-            throw new CborException("Not implemented major type " + b);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

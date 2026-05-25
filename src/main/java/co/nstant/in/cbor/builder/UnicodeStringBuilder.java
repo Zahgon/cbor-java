@@ -9,13 +9,10 @@ public class UnicodeStringBuilder<T extends AbstractBuilder<?>> extends Abstract
     }
 
     public UnicodeStringBuilder<T> add(String string) {
-        getParent().addChunk(convert(string));
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public T end() {
-        getParent().addChunk(SimpleValue.BREAK);
-        return getParent();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

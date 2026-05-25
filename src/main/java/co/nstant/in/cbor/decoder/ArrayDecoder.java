@@ -1,7 +1,6 @@
 package co.nstant.in.cbor.decoder;
 
 import java.io.InputStream;
-
 import co.nstant.in.cbor.CborDecoder;
 import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.Array;
@@ -16,12 +15,7 @@ public class ArrayDecoder extends AbstractDecoder<Array> {
 
     @Override
     public Array decode(int initialByte) throws CborException {
-        long length = getLength(initialByte);
-        if (length == INFINITY) {
-            return decodeInfinitiveLength();
-        } else {
-            return decodeFixedLength(length);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private Array decodeInfinitiveLength() throws CborException {
@@ -29,7 +23,7 @@ public class ArrayDecoder extends AbstractDecoder<Array> {
         array.setChunked(true);
         if (decoder.isAutoDecodeInfinitiveArrays()) {
             DataItem dataItem;
-            for (;;) {
+            for (; ; ) {
                 dataItem = decoder.decodeNext();
                 if (dataItem == null) {
                     throw new CborException("Unexpected end of stream");
@@ -55,5 +49,4 @@ public class ArrayDecoder extends AbstractDecoder<Array> {
         }
         return array;
     }
-
 }

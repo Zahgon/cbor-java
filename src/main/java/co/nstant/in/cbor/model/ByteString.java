@@ -16,25 +16,16 @@ public class ByteString extends ChunkableDataItem {
     }
 
     public byte[] getBytes() {
-        if (bytes == null) {
-            return null;
-        } else {
-            return bytes;
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof ByteString) {
-            ByteString other = (ByteString) object;
-            return super.equals(object) && Arrays.equals(bytes, other.bytes);
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() ^ Arrays.hashCode(bytes);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

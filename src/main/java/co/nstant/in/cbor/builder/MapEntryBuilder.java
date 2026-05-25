@@ -3,6 +3,7 @@ package co.nstant.in.cbor.builder;
 import co.nstant.in.cbor.model.DataItem;
 
 public class MapEntryBuilder<T extends MapBuilder<?>> extends AbstractBuilder<T> {
+
     private final DataItem key;
 
     public MapEntryBuilder(T parent, DataItem key) {
@@ -11,19 +12,19 @@ public class MapEntryBuilder<T extends MapBuilder<?>> extends AbstractBuilder<T>
     }
 
     public T value(boolean value) {
-        return put(key, convert(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public T value(byte[] value) {
-        return put(key, convert(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public T value(double value) {
-        return put(key, convert(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public T value(String value) {
-        return put(key, convert(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private T put(DataItem key, DataItem value) {
@@ -32,8 +33,6 @@ public class MapEntryBuilder<T extends MapBuilder<?>> extends AbstractBuilder<T>
     }
 
     public MapEntryBuilder<T> tagged(long tag) {
-        DataItem item = key.getOuterTaggable();
-        item.setTag(tag);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

@@ -9,13 +9,10 @@ public class ByteStringBuilder<T extends AbstractBuilder<?>> extends AbstractBui
     }
 
     public ByteStringBuilder<T> add(byte[] bytes) {
-        getParent().addChunk(convert(bytes));
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public T end() {
-        getParent().addChunk(SimpleValue.BREAK);
-        return getParent();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

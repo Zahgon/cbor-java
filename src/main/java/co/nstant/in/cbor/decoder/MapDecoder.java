@@ -1,7 +1,6 @@
 package co.nstant.in.cbor.decoder;
 
 import java.io.InputStream;
-
 import co.nstant.in.cbor.CborDecoder;
 import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.DataItem;
@@ -16,19 +15,14 @@ public class MapDecoder extends AbstractDecoder<Map> {
 
     @Override
     public Map decode(int initialByte) throws CborException {
-        long length = getLength(initialByte);
-        if (length == INFINITY) {
-            return decodeInfinitiveLength();
-        } else {
-            return decodeFixedLength(length);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private Map decodeInfinitiveLength() throws CborException {
         Map map = new Map();
         map.setChunked(true);
         if (decoder.isAutoDecodeInfinitiveMaps()) {
-            for (;;) {
+            for (; ; ) {
                 DataItem key = decoder.decodeNext();
                 if (Special.BREAK.equals(key)) {
                     break;
@@ -61,5 +55,4 @@ public class MapDecoder extends AbstractDecoder<Map> {
         }
         return map;
     }
-
 }

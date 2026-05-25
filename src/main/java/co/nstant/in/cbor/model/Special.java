@@ -14,26 +14,21 @@ public class Special extends DataItem {
     }
 
     public SpecialType getSpecialType() {
-        return specialType;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof Special) {
-            Special other = (Special) object;
-            return super.equals(object) && specialType == other.specialType;
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() ^ Objects.hashCode(specialType);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return specialType.name();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

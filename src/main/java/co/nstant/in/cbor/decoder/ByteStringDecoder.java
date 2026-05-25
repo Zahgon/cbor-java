@@ -2,7 +2,6 @@ package co.nstant.in.cbor.decoder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-
 import co.nstant.in.cbor.CborDecoder;
 import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.ByteString;
@@ -18,23 +17,12 @@ public class ByteStringDecoder extends AbstractDecoder<ByteString> {
 
     @Override
     public ByteString decode(int initialByte) throws CborException {
-        long length = getLength(initialByte);
-        if (length == INFINITY) {
-            if (decoder.isAutoDecodeInfinitiveByteStrings()) {
-                return decodeInfinitiveLength();
-            } else {
-                ByteString byteString = new ByteString(null);
-                byteString.setChunked(true);
-                return byteString;
-            }
-        } else {
-            return decodeFixedLength(length);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private ByteString decodeInfinitiveLength() throws CborException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        for (;;) {
+        for (; ; ) {
             DataItem dataItem = decoder.decodeNext();
             if (dataItem == null) {
                 throw new CborException("Unexpected end of stream");
@@ -58,5 +46,4 @@ public class ByteStringDecoder extends AbstractDecoder<ByteString> {
     private ByteString decodeFixedLength(long length) throws CborException {
         return new ByteString(decodeBytes(length));
     }
-
 }

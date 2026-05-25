@@ -18,11 +18,10 @@ public class LanguageTaggedString extends Array {
     }
 
     public UnicodeString getLanguage() {
-        return (UnicodeString) getDataItems().get(0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public UnicodeString getString() {
-        return (UnicodeString) getDataItems().get(1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

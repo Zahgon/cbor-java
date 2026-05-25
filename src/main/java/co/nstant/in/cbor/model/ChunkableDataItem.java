@@ -11,26 +11,20 @@ class ChunkableDataItem extends DataItem {
     }
 
     public boolean isChunked() {
-        return chunked;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public ChunkableDataItem setChunked(boolean chunked) {
-        this.chunked = chunked;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof ChunkableDataItem) {
-            ChunkableDataItem other = (ChunkableDataItem) object;
-            return super.equals(object) && chunked == other.chunked;
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() ^ Objects.hashCode(chunked);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

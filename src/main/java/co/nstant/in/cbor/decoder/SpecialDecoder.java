@@ -1,7 +1,6 @@
 package co.nstant.in.cbor.decoder;
 
 import java.io.InputStream;
-
 import co.nstant.in.cbor.CborDecoder;
 import co.nstant.in.cbor.CborException;
 import co.nstant.in.cbor.model.SimpleValue;
@@ -12,7 +11,9 @@ import co.nstant.in.cbor.model.SpecialType;
 public class SpecialDecoder extends AbstractDecoder<Special> {
 
     private final HalfPrecisionFloatDecoder halfPrecisionFloatDecoder;
+
     private final SinglePrecisionFloatDecoder singlePrecisionFloatDecoder;
+
     private final DoublePrecisionFloatDecoder doublePrecisionFloatDecoder;
 
     public SpecialDecoder(CborDecoder decoder, InputStream inputStream) {
@@ -24,36 +25,6 @@ public class SpecialDecoder extends AbstractDecoder<Special> {
 
     @Override
     public Special decode(int initialByte) throws CborException {
-        switch (SpecialType.ofByte(initialByte)) {
-        case BREAK:
-            return Special.BREAK;
-        case SIMPLE_VALUE:
-            switch (SimpleValueType.ofByte(initialByte)) {
-            case FALSE:
-                return SimpleValue.FALSE;
-            case TRUE:
-                return SimpleValue.TRUE;
-            case NULL:
-                return SimpleValue.NULL;
-            case UNDEFINED:
-                return SimpleValue.UNDEFINED;
-            case UNALLOCATED:
-                return new SimpleValue(initialByte & 31);
-            case RESERVED:
-            default:
-                throw new CborException("Not implemented");
-            }
-        case IEEE_754_HALF_PRECISION_FLOAT:
-            return halfPrecisionFloatDecoder.decode(initialByte);
-        case IEEE_754_SINGLE_PRECISION_FLOAT:
-            return singlePrecisionFloatDecoder.decode(initialByte);
-        case IEEE_754_DOUBLE_PRECISION_FLOAT:
-            return doublePrecisionFloatDecoder.decode(initialByte);
-        case SIMPLE_VALUE_NEXT_BYTE:
-            return new SimpleValue(nextSymbol());
-        default:
-            throw new CborException("Not implemented");
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

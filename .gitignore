@@ -5,3 +5,8 @@
 .project
 .settings
 .idea
+
+.aider*
+logs/
+.commit0_scripts/
+.github/workflows/
